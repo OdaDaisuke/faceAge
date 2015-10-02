@@ -9,7 +9,7 @@ $(document).ready(function() {
 		$shot = $('#shot'),
 		$previewVideo = $('#previewVideo'),
 		previewVideo = document.querySelector('#previewVideo'),
-		$previewPhoto = $('#previewPhoto'),
+		$previewPhoto = $('.previewPhoto'),
 		previewPhoto = document.querySelector('#previewPhoto'),
 		$previewCanvas = $('#previewCanvas'),
 
@@ -76,7 +76,7 @@ $(document).ready(function() {
 					},
 					success : function(json) {
 						image_url = json;
-						image_url = 'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRMvwmCZeBZYAh7eUH27stc3r09Mhs0ZG49MrEK1jGS-YbFlOeu';
+						image_url = 'http://www.hdrank.com/images/upload/keyword/284/5010/3389.jpg';
 						analyze();
 					},
 					error : function(msg) {
@@ -189,28 +189,37 @@ $(document).ready(function() {
 	var FaceAnalyzeResultParser = function() {
 		// jsonを受け取ってHTML成型表示
 		this.rendering = function(json) {
-			json.imageFaces = json.imageFaces[0];
-console.log(json);
-			if(json.status == 'OK') {
-				var combat_power = {
-					ageRange : molder.moldAgeRange(json.imageFaces.age.ageRange),
-					gender : molder.moldGender(json.imageFaces.gender.gender),
-					height : molder.moldHeight(json.imageFaces.height),
-					attack : combat_extractor.generateAttach(json.imageFaces.age.score),
-					defense : combat_extractor.generateDefense(json.imageFaces.gender.score)
+			var $age = $('#analyze_age'),
+				$gender = $('#analyze_gender'),
+				$height = $('#analyze_height'),
+				$attack = $('#analyze_attack'),
+				parseResult = function() {
+					json.imageFaces = json.imageFaces[0];
+		
+					if(json.status == 'OK') {
+						var combat_power = {
+							ageRange : molder.moldAgeRange(json.imageFaces.age.ageRange),
+							gender : molder.moldGender(json.imageFaces.gender.gender),
+							height : molder.moldHeight(json.imageFaces.height),
+							attack : combat_extractor.generateAttach(json.imageFaces.age.score),
+							defense : combat_extractor.generateDefense(json.imageFaces.gender.score)
+						};
+		
+						$age.text(combat_power.ageRange);
+						$gender.text(combat_power.gender);
+						$height.text(combat_power.height);
+						$attack.text(combat_power.attack);
+					}
 				};
-				
-				var $age = $('#analyze_age'),
-					$gender = $('#analyze_gender'),
-					$height = $('#analyze_height'),
-					$attack = $('#analyze_attack');
 
-console.log(combat_power);
-
-				$age.text(combat_power.ageRange);
-				$gender.text(combat_power.gender);
-				$height.text(combat_power.height);
-				$attack.text(combat_power.attack);
+			if(json.imageFaces.length == 0) {
+				$age.text('年齢:?');
+				$gender.text('?');
+				$height.text('?');
+				$attack.text('?');
+				alert('顔を認識できませんでした。');
+			} else {
+				parseResult();
 			}
 
 		};

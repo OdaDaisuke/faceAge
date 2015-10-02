@@ -34,7 +34,6 @@ body {
 	font-family:'Noto sans Japanese', Meiryo;
 	font-size:16px;
 	height:100vh;
-	overflow: hidden;
 }
 
 .btn,
@@ -146,6 +145,9 @@ a:hover {
 .white-text {
 	color:#fff;
 }
+.previewPhoto {
+	max-height:350px;
+}
 
 /* camera form*/
 .camera-form {
@@ -169,9 +171,8 @@ video.preview-video {
 	margin-right:auto;
 	margin-left:auto;
 	max-height:300px;
-	max-width:500px;
+	max-width:85%;
 	min-height:200px;
-	width:80%;
 }
 .dnone {
 	display: none;
@@ -331,13 +332,9 @@ video.preview-video {
  * 4. Footer
  */
 footer {
-	background-color:rgba(20,20,20,0.8);
+	background-color:#000;
 	padding:1rem;
-}
-.footer-fixed {
-	bottom:0;
-	position:fixed;
-	width:100%;
+	position:relative;
 }
 .powered {
 	color:#fff;

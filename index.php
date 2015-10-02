@@ -46,7 +46,7 @@ Render::applyHeader();
 			<h2 class="lookat">カメラを見てください！</h2>
 			<video id="previewVideo" autoplay class="preview-video dnone" src="" width="500" height="300"></video>
 			<canvas id="previewCanvas" class="preview-canvas dnone" width="500" height="300"></canvas>
-			<img id="previewPhoto" src="assets/img/bg/sunrize.jpg" alt="あなたが今撮影した写真" class="dnone preview-photo dnone">
+			<img src="http://www.hdrank.com/images/upload/keyword/284/5010/3389.jpg" alt="あなたが今撮影した写真" class="previewPhoto dnone preview-photo dnone">
 		</div>
 		<div class="center">
 			<p>
@@ -79,7 +79,7 @@ Render::applyHeader();
 	<h2 class="caption-result">あなたの顔面戦闘力<i class="fa fa-thumbs-up"></i></h2>
 	<div id="face_analyze_rs" class="result-canvas">
 		<p>
-			<img src="https://lh3.googleusercontent.com/-jiWUvBcB4GQ/UVhup3CNA6I/AAAAAAAAHz8/tHybv3ExxmY/s630-fcrop64=1,01ad1e3cded7e5ca/anonymous-1280x800.jpg"></img>
+			<img src="http://www.hdrank.com/images/upload/keyword/284/5010/3389.jpg" alt="あなたが今撮影した写真" class="previewPhoto dnone preview-photo dnone">
 		</p>
 		<p>
 			<div class="text-card">推定<span id="analyze_age" class="text-card-approach"></span></div>
