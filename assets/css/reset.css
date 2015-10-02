@@ -1,0 +1,22 @@
+@charset 'utf-8';
+
+body,html {
+	margin:0;
+	padding:0;
+	width:100%;
+}
+
+p {
+	line-height:1.5;
+}
+
+ul,ol {
+	list-style-type:none;
+}
+div,img,ul,ol,form,article,section,header,footer,main,nav {
+	box-sizing:border-box;
+}
+
+img {
+	vertical-align: middle;
+}
