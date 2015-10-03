@@ -31,7 +31,44 @@ class Alchemy {
 	}
 	
 	// 画像をアップロード
-	public function uploadImage() {
-		return true;
+	public static function uploadImage($image_binary) {
+		$file_name = self::generateFileName();
+		$binary = $image_binary;
+		
+		// 引数がURLだったらfile_get_contents()
+		if(self::matchURL($image_binary)) {
+			return $image_binary;
+		} else {
+			$ext = self::getImageExt($image_binary);
+		}
+		
+		$file_name .= $ext;
+		$file_dir = '/faceage/storage/' . $file_name;
+
+		if(touch($file_dir)) {
+			chmod($file_dir, 0666 );
+			$fp = fopen($file_dir, "w");
+			fwrite($fp, $binary);
+			fclose($fp);
+		} else {
+			return false;
+		}
+
+		// 保存したURLを返す
+		return 'https://ide.c9.io/daisukeoda/faceage/storage/' . $file_name;
+	}
+	private static function matchURL($str) {
+		return preg_match('/^(https?|ftp)(:\/\/[-_.!~*\'()a-zA-Z0-9;\/?:\@&=+\$,%#]+)$/', $str);
+	}
+	// 画像ファイル名を生成
+	private static function generateFileName() {
+		$str = 'abcdefghijklmnopqrstuvwxyz123456789_-[]()';
+		for($i = 0;$i < strlen($str);++$i)
+			$rs .= $str[rand(0,strlen($str)-1)];
+		return $rs;
+	}
+	private static function getImageExt($image_binary) {
+		preg_match_all('/(jpeg|jpg|png|gif)/', $image_binary, $rs);
+		return '.png';
 	}
 }

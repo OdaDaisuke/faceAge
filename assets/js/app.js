@@ -10,7 +10,7 @@ $(document).ready(function() {
 		$previewVideo = $('#previewVideo'),
 		previewVideo = document.querySelector('#previewVideo'),
 		$previewPhoto = $('.previewPhoto'),
-		previewPhoto = document.querySelector('#previewPhoto'),
+		previewPhoto = document.querySelector('.previewPhoto'),
 		$previewCanvas = $('#previewCanvas'),
 
 		$confirm_use_image = $('#confirm_use_image'),
@@ -76,11 +76,13 @@ $(document).ready(function() {
 					},
 					success : function(json) {
 						image_url = json;
-						image_url = 'http://www.hdrank.com/images/upload/keyword/284/5010/3389.jpg';
+						console.log(image_url);
 						analyze();
 					},
 					error : function(msg) {
 						console.log(msg);
+						alert('アップロード中にエラーが発生しました。');
+						//location.reload();
 					}
 				});
 			};
