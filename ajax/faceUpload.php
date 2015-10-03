@@ -3,8 +3,10 @@ require_once '../app/bootstrap.php';
 
 Bootstrap::loadFile('Lib/Alchemy.php');
 
-$data = base64_decode($_POST['image_data']);
+$key = filter_input(INPUT_POST, 'key');
+if($key != 'ojsafdiwea645wear64wea') die('error');
 
+$data = base64_decode($_POST['image_data']);
 $rs = Alchemy::uploadImage($data);
 
 if($rs) {

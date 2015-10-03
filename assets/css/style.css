@@ -59,6 +59,9 @@ a:hover {
 	font-size: 3rem;
 	text-shadow: 0 0 5px #2CB7C5;
 }
+.char-2x {
+	font-size:2rem;
+}
 .lookat {
 	font-family:serif;
 	font-size:1.58rem;
@@ -79,14 +82,11 @@ a:hover {
 }
 .result-canvas {
 	background-color: #F5F5F5;
-	box-shadow: 2px 2px 0px #8F8F8F;
 	margin-right: auto;
 	margin-left: auto;
-	max-width: 850px;
+	max-width: 1224px;
 	overflow: hidden;
-	padding: 2rem;
-	border: 1px solid #D4D4D4;
-	border-radius: 1rem;
+	width: 80%;
 }
 .text-card {
 	color: #007215;
@@ -317,6 +317,9 @@ video.preview-video {
 	.l4 {
 		width:33.3333333%;
 	}
+	.l6 {
+		width:50%;
+	}
 	.caption-col {
 		font-family:Meiryo;
 		font-size:1.5rem;
@@ -364,3 +367,21 @@ footer {
 		display: table-cell;
 		vertical-align: middle;
 	}
+
+/*
+ * 7. Style_SP
+ */
+@media (max-width : 600px) {
+	.s12 {
+		width:100%;
+	}
+}
+
+/*
+ * 8. Style_Tablet
+ */
+@media (max-width : 950px) {
+	.m6 {
+		width:50%;
+	}
+}

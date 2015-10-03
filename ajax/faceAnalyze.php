@@ -1,11 +1,12 @@
 <?php
-header("Content-Type: application/json; charset=utf-8");
+// header("Content-Type: application/json; charset=utf-8");
 
 require_once '../app/bootstrap.php';
 
 Bootstrap::loadFile('Lib/Alchemy.php');
 
 Alchemy::init();
-$rs = Alchemy::analyze(filter_input(INPUT_POST, 'image_url'));
+$image_url = $_POST['image_url'];
+$rs = Alchemy::analyze($image_url);
 
-echo $rs;
+echo json_encode($rs);

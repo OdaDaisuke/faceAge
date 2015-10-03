@@ -75,27 +75,31 @@ Render::applyHeader();
 		<div></div>
 	</div>
 </section>
-<section id="analyze_result" class="dnone fixed-card center">
-	<h2 class="caption-result">あなたの顔面戦闘力<i class="fa fa-thumbs-up"></i></h2>
+<section id="analyze_result" class="dnone fixed-card">
+	<h2 class="caption-result center">あなたの顔面戦闘力<i class="fa fa-thumbs-up"></i></h2>
 	<div id="face_analyze_rs" class="result-canvas">
-		<p>
-			<img src="http://www.hdrank.com/images/upload/keyword/284/5010/3389.jpg" alt="あなたが今撮影した写真" class="previewPhoto dnone preview-photo dnone">
-		</p>
-		<p>
-			<div class="text-card">推定<span id="analyze_age" class="text-card-approach"></span></div>
-			<div class="text-card">推定性別:<span id="analyze_gender" class="text-card-approach"></span></div>
-		</p>
-		<p>
-			<p class="analyze-row">推定身長 : <span id="analyze_height"></span></p>
-		</p>
-		<p>
-			<p class="analyze-row">攻撃力(上限100万) : <span id="analyze_attack"></span></p>
-		</p>
+		<div class="col s12 m6 l6 center">
+			<p>
+				<img src="http://www.hdrank.com/images/upload/keyword/284/5010/3389.jpg" alt="あなたが今撮影した写真" class="previewPhoto dnone preview-photo dnone">
+			</p>
+			<p>
+				<div class="text-card">推定<span id="analyze_age" class="text-card-approach"></span></div>
+				<div class="text-card">推定性別:<span id="analyze_gender" class="text-card-approach"></span></div>
+			</p>
+			<p>
+				<div class="text-card">推定身長 : <span id="analyze_height"></span></div>
+			</p>
+		</div>
+		<div class="col s12 m6 l6">
+			<p id="analyze_detail" class="char-2x">結果説明文</p>
+			<p class="char-2x">
+				攻撃力(上限1000万) : <span id="analyze_attack"></span>
+			</p>
+			<p>
+				<button class="shot_cancel btn btn--complete btn--circle"><i class="fa fa-check"></i>完了</button>
+				<button class="photo_try_again btn btn--default btn--circle">もう一回試す</button>
+			</p>
+		</div>
 	</div>
-	<p id="" class="">結果説明文</p>
-	<p>
-		<button class="shot_cancel btn btn--complete btn--circle"><i class="fa fa-check"></i>完了</button>
-		<button class="photo_try_again btn btn--default btn--circle">もう一回試す</button>
-	</p>
 </section>
 <?php Render::applyFooter(); ?>

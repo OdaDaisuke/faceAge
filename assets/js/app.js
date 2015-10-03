@@ -10,7 +10,6 @@ $(document).ready(function() {
 		$previewVideo = $('#previewVideo'),
 		previewVideo = document.querySelector('#previewVideo'),
 		$previewPhoto = $('.previewPhoto'),
-		previewPhoto = document.querySelector('.previewPhoto'),
 		$previewCanvas = $('#previewCanvas'),
 
 		$confirm_use_image = $('#confirm_use_image'),
@@ -20,8 +19,6 @@ $(document).ready(function() {
 
 		// 解析結果表示エリア
 		$rs_parse_area = $('#analyze_result'),
-		// canvas_face_rs = document.querySelector('#face_analyze_rs'),
-		// face_rs_ctx = canvas_face_rs.getContext('2d'),
 		$face_analyze_rs = ('#face_analyze_rs'),
 
 		localMediaStream = null,
@@ -57,12 +54,23 @@ $(document).ready(function() {
 		this.analyze = function () {
 			var analyze = function() {
 				//API叩いて解析
-				$.post('./ajax/faceAnalyze.php', {
-					image_url : image_url
-				}, function(analyze_json) {
-					loader.loading('end');
-					parser.show();
-					parser.rendering(analyze_json);
+				$.ajax({
+					type : 'POST',
+					url : './ajax/faceAnalyze.php',
+					dataType : 'json',
+					data : {
+						image_url : image_url
+					},
+					success : function(analyze_json) {
+						loader.loading('end');
+						parser.show();
+						parser.rendering(JSON.parse(analyze_json));
+					},
+					error : function(analyze_json) {
+						loader.loading('end');
+						alert('解析中にエラーが発生しました。');
+						location.reload();
+					}
 				});
 			};
 			var upload = function () {
@@ -72,15 +80,16 @@ $(document).ready(function() {
 					url : './ajax/faceUpload.php',
 					dataType : 'json',
 					data : {
-						image_data : image_data.replace(/^.*,/, '')
+						image_data : image_data.replace(/^.*,/, ''),
+						key : 'ojsafdiwea645wear64wea'
 					},
 					success : function(url) {
-						image_url = url;
+						image_url = url.image_url;
 						analyze();
 					},
 					error : function(url) {
-						image_url = url;
-						analyze();
+						alert('アップロード中にエラーが発生しました。');
+						location.reload();
 					}
 				});
 			};
@@ -109,7 +118,7 @@ $(document).ready(function() {
 			if(localMediaStream) {
 				ctx.drawImage(previewVideo, 0, 0, 500, 300);
 				image_data = canvas.toDataURL('image/png');
-				previewPhoto.src = image_data;
+				$previewPhoto.attr('src', image_data);
 			}
 		};
 
@@ -193,33 +202,48 @@ $(document).ready(function() {
 				$gender = $('#analyze_gender'),
 				$height = $('#analyze_height'),
 				$attack = $('#analyze_attack'),
+				$detail = $('#analyze_detail'),
 				parseResult = function() {
 					json.imageFaces = json.imageFaces[0];
-		
 					if(json.status == 'OK') {
 						var combat_power = {
 							ageRange : molder.moldAgeRange(json.imageFaces.age.ageRange),
 							gender : molder.moldGender(json.imageFaces.gender.gender),
 							height : molder.moldHeight(json.imageFaces.height),
 							attack : combat_extractor.generateAttach(json.imageFaces.age.score),
-							defense : combat_extractor.generateDefense(json.imageFaces.gender.score)
+							defense : combat_extractor.generateDefense(json.imageFaces.gender.score),
+							detail : null
 						};
+
+						combat_power.detail = molder.getDetail(combat_power);
 		
 						$age.text(combat_power.ageRange);
 						$gender.text(combat_power.gender);
 						$height.text(combat_power.height);
-						$attack.text(combat_power.attack);
+						$attack.text(combat_power.attack.toLocaleString());
+						$detail.text(combat_power.detail);
 					}
 				};
 
-			if(json.imageFaces.length == 0) {
+			$(".previewPhoto").faceu({
+				apikey: '5ce21ec6e0c64a1548a85f85bb2189c5',      // APIキー(必須)
+				mode: 2,                   // 描画モード
+				color: '#0080ff',          // 線の色
+				fill: '#0080ff',           // 塗りつぶしの色
+				circle: 5,                 // 円の大きさ
+				opacity: 0.6,              // 透明度（0～1）
+				input_type: 'url',        // 送信方法 (url or file)
+				img_url: image_url      // 画像のURL ※送信方法がfileの時は不要
+			});
+
+			if(json['status'] !== undefined && json['status'] == 'OK' && json.imageFaces.length > 0) {
+				parseResult();
+			} else {
 				$age.text('年齢:?');
 				$gender.text('?');
 				$height.text('?');
 				$attack.text('?');
-				alert('顔を認識できませんでした。');
-			} else {
-				parseResult();
+				$detail.text('顔を認識できませんでした。');
 			}
 
 		};
@@ -273,6 +297,47 @@ $(document).ready(function() {
 
 			return age + 'cm';
 		};
+		// 身長と攻撃力を基に詳細文章を返す
+		this.getDetail = function(combat) {
+			var rs = '';
+			var gender = {'male' : 'ボーイ', 'female': 'ガール'};
+
+			// 攻撃力ベース
+			if(combat.attack < 1000) {
+				rs += '軟弱な';
+			} else if(combat.attack < 10000) {
+				rs += '面白い';
+			} else if(combat.attack < 150000) {
+				rs += 'ミーハーな';
+			} else if(combat.attack < 400000) {
+				rs += '鍛錬中の';
+			} else if(combat.attack < 1000000) {
+				rs += '強めの';
+			} else if(combat.attack < 2500000) {
+				rs += '陽気な';
+			} else if(combat.attack < 5000000) {
+				rs += '戦場の'
+			} else if(combat.attack < 7800000) {
+				rs += '軍曹級の'
+			} else {
+				rs += '世界最強の';
+			}
+
+			//身長ベース
+			if(combat.height < 50) {
+				rs += '小人';
+			} else if(combat.height < 75) {
+				rs += '天使';
+			} else if(combat.height < 135) {
+				rs += '子供';
+			} else if(combat.height < 190) {
+				rs += 'イケイケ' + gender[combat.gender];
+			} else {
+				rs += '神様';
+			}
+
+			return rs;
+		}
 	};
 	
 	/* 戦闘力を計算して返す
@@ -281,7 +346,7 @@ $(document).ready(function() {
 	var CombatPowerExtracter = function() {
 		// 攻撃力
 		this.generateAttach = function(score) {
-			return Math.floor(score * (Math.random() * 1000000) + Math.random() * 2);
+			return Math.floor(score * (Math.random() * 10000000) + Math.random() * 2);
 		};
 		
 		// 防御力

@@ -2,15 +2,15 @@
 // クラスを使用する前に Alchemy::init(); を実行してください。
 
 class Alchemy {
-	private static $api_key = '937ccfec370af7d6642363e8fac1178deb474f13';
+	private static $api_key_alchemy = '937ccfec370af7d6642363e8fac1178deb474f13';
+	private static $api_key_pux = '5ce21ec6e0c64a1548a85f85bb2189c5';
 	private static $analyze_url = 'http://access.alchemyapi.com/calls/url/URLGetRankedImageFaceTags';
 
 	public static function init() {
-		self::$analyze_url .= '?outputMode=json&knowledgeGraph=1&apikey=' . self::$api_key . '&url=';
+		self::$analyze_url .= '?outputMode=json&knowledgeGraph=1&apikey=' . self::$api_key_alchemy . '&url=';
 	}
 
 	public static function analyze($target_url) {
-		$o = array('Content-Type: application/x-www-form-urlencoded');
 		$target_url = self::$analyze_url . urlencode($target_url);
 
 		return file_get_contents($target_url);
@@ -53,7 +53,7 @@ class Alchemy {
 			fwrite($fp, $binary);
 			fclose($fp);
 			// 保存したURLを返す
-			return 'http://localhost/faceage/storage/' . $file_name;
+			return SITE_URL . 'storage/' . $file_name;
 		} else {
 			return false;
 		}
