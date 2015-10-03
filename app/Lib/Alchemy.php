@@ -41,21 +41,22 @@ class Alchemy {
 		} else {
 			$ext = self::getImageExt($image_binary);
 		}
-		
-		$file_name .= $ext;
-		$file_dir = '/faceage/storage/' . $file_name;
 
-		if(touch($file_dir)) {
+		$file_name .= $ext;
+		$dir = dirname(__FILE__) . '/../../storage/';
+		$file_dir = $dir . $file_name;
+
+		if(is_dir($dir)) {
+			touch($file_dir);
 			chmod($file_dir, 0666 );
 			$fp = fopen($file_dir, "w");
 			fwrite($fp, $binary);
 			fclose($fp);
+			// 保存したURLを返す
+			return 'http://localhost/faceage/storage/' . $file_name;
 		} else {
 			return false;
 		}
-
-		// 保存したURLを返す
-		return 'https://ide.c9.io/daisukeoda/faceage/storage/' . $file_name;
 	}
 	private static function matchURL($str) {
 		return preg_match('/^(https?|ftp)(:\/\/[-_.!~*\'()a-zA-Z0-9;\/?:\@&=+\$,%#]+)$/', $str);
@@ -63,6 +64,7 @@ class Alchemy {
 	// 画像ファイル名を生成
 	private static function generateFileName() {
 		$str = 'abcdefghijklmnopqrstuvwxyz123456789_-[]()';
+		$rs = '';
 		for($i = 0;$i < strlen($str);++$i)
 			$rs .= $str[rand(0,strlen($str)-1)];
 		return $rs;

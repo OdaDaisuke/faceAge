@@ -72,17 +72,15 @@ $(document).ready(function() {
 					url : './ajax/faceUpload.php',
 					dataType : 'json',
 					data : {
-						image_data : image_data
+						image_data : image_data.replace(/^.*,/, '')
 					},
-					success : function(json) {
-						image_url = json;
-						console.log(image_url);
+					success : function(url) {
+						image_url = url;
 						analyze();
 					},
-					error : function(msg) {
-						console.log(msg);
-						alert('アップロード中にエラーが発生しました。');
-						//location.reload();
+					error : function(url) {
+						image_url = url;
+						analyze();
 					}
 				});
 			};

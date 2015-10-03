@@ -3,8 +3,10 @@ require_once '../app/bootstrap.php';
 
 Bootstrap::loadFile('Lib/Alchemy.php');
 
-$rs = Alchemy::uploadImage(filter_input(INPUT_POST, 'image_data'));
-var_dump($rs);
+$data = base64_decode($_POST['image_data']);
+
+$rs = Alchemy::uploadImage($data);
+
 if($rs) {
     echo json_encode(['image_url' => htmlspecialchars($rs, ENT_QUOTES)]);
 } else {
