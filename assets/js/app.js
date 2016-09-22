@@ -30,6 +30,8 @@ $(document).ready(function() {
 		analyze_json = null,
 		camera_called = false;
 
+	var api_key_pux = '5ce21ec6e0c64a1548a85f85bb2189c5';
+
 	function accessToCamera() {
 		// If able to access to camera.
 		if(hasGetUserMedia()) {
@@ -68,8 +70,11 @@ $(document).ready(function() {
 					},
 					error : function(analyze_json) {
 						loader.loading('end');
-						alert('解析中にエラーが発生しました。');
+						parser.show();
+						parser.rendering(JSON.parse(analyze_json));
+/*						alert('解析中にエラーが発生しました。');
 						location.reload();
+*/
 					}
 				});
 			};
@@ -117,7 +122,7 @@ $(document).ready(function() {
 			// 撮影
 			if(localMediaStream) {
 				ctx.drawImage(previewVideo, 0, 0, 500, 300);
-				image_data = canvas.toDataURL('image/png');
+				image_data = canvas.toDataURL('image/jpeg');
 				$previewPhoto.attr('src', image_data);
 			}
 		};
@@ -225,7 +230,7 @@ $(document).ready(function() {
 					}
 				};
 
-			$(".previewPhoto").faceu({
+			$("#RsPhoto").faceu({
 				apikey: '5ce21ec6e0c64a1548a85f85bb2189c5',      // APIキー(必須)
 				mode: 2,                   // 描画モード
 				color: '#0080ff',          // 線の色
@@ -302,27 +307,6 @@ $(document).ready(function() {
 			var rs = '';
 			var gender = {'male' : 'ボーイ', 'female': 'ガール'};
 
-			// 攻撃力ベース
-			if(combat.attack < 1000) {
-				rs += '軟弱な';
-			} else if(combat.attack < 10000) {
-				rs += '面白い';
-			} else if(combat.attack < 150000) {
-				rs += 'ミーハーな';
-			} else if(combat.attack < 400000) {
-				rs += '鍛錬中の';
-			} else if(combat.attack < 1000000) {
-				rs += '強めの';
-			} else if(combat.attack < 2500000) {
-				rs += '陽気な';
-			} else if(combat.attack < 5000000) {
-				rs += '戦場の'
-			} else if(combat.attack < 7800000) {
-				rs += '軍曹級の'
-			} else {
-				rs += '世界最強の';
-			}
-
 			//身長ベース
 			if(combat.height < 50) {
 				rs += '小人';
@@ -331,9 +315,9 @@ $(document).ready(function() {
 			} else if(combat.height < 135) {
 				rs += '子供';
 			} else if(combat.height < 190) {
-				rs += 'イケイケ' + gender[combat.gender];
+				rs += '平均的身長です。';
 			} else {
-				rs += '神様';
+				rs += '身長が大きいですね。今度一杯やりませんか？';
 			}
 
 			return rs;

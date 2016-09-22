@@ -148,6 +148,14 @@ a:hover {
 .previewPhoto {
 	max-height:350px;
 }
+.sentence-wrap {
+	padding-left: 2em;
+}
+
+/* headings */
+.hd-2 {
+	font-size:2.2rem;
+}
 
 /* camera form*/
 .camera-form {
@@ -164,6 +172,7 @@ a:hover {
 .camera-form.visible {
 	display: block;
 }
+#RsPhoto,
 .preview-photo,
 .preview-canvas,
 video.preview-video {
@@ -173,6 +182,14 @@ video.preview-video {
 	max-height:300px;
 	max-width:85%;
 	min-height:200px;
+	position:relative;
+}
+#RsPhoto {
+	height:300px;
+}
+#RsPhoto > canvas {
+	left: 0;
+	width:100%;
 }
 .dnone {
 	display: none;
@@ -246,6 +263,11 @@ video.preview-video {
 	position: relative;
 	width: 100%;
 }
+	.main-content > .inner {
+		color:#fff;
+		padding-left: 2rem;
+		text-shadow: 0 0 2px #000;
+	}
 .pr-1 {
 	padding-right: 1rem;
 }

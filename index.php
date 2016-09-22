@@ -4,7 +4,7 @@ Render::applyHeader();
 ?>
 <div class="main-content dt">
 	<div class="dtc center">
-		<h1 class="title"><i class="fa fa-smile-o"></i>顔面戦闘力スカウター</h1>
+		<h1 class="title"><i class="fa fa-smile-o"></i>FaceCombat</h1>
 		<button id="lets_shot" class="btn btn--default"><i class="fa fa-camera fa-fw"></i> 顔写真を撮る</button>
 		<p>
 			<ul class="row container">
@@ -29,10 +29,10 @@ Render::applyHeader();
 				<li class="col s12 m6 l4 pr-1 pl-1">
 					<p>
 						<i class="fa fa-users white-text"></i>
-						<span class="caption-col white-text">プライバシーは守ります。</span>
+						<span class="caption-col white-text">推定身長算出。</span>
 					</p>
 					<p class="white-text">
-						当サービスにおいて、撮影された顔写真はすべて撮影後削除されます。ご安心ください。
+						表情や顔のパーツの配置、比率等を基に推定身長をはじき出します。(誤差有)
 					</p>
 				</li>
 			</ul>
@@ -80,7 +80,7 @@ Render::applyHeader();
 	<div id="face_analyze_rs" class="result-canvas">
 		<div class="col s12 m6 l6 center">
 			<p>
-				<img src="http://www.hdrank.com/images/upload/keyword/284/5010/3389.jpg" alt="あなたが今撮影した写真" class="previewPhoto dnone preview-photo dnone">
+				<div id="RsPhoto"></div>
 			</p>
 			<p>
 				<div class="text-card">推定<span id="analyze_age" class="text-card-approach"></span></div>
@@ -93,7 +93,7 @@ Render::applyHeader();
 		<div class="col s12 m6 l6">
 			<p id="analyze_detail" class="char-2x">結果説明文</p>
 			<p class="char-2x">
-				攻撃力(上限1000万) : <span id="analyze_attack"></span>
+				戦闘力(上限1000万) : <span id="analyze_attack"></span>
 			</p>
 			<p>
 				<button class="shot_cancel btn btn--complete btn--circle"><i class="fa fa-check"></i>完了</button>

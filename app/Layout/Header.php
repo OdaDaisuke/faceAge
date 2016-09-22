@@ -7,6 +7,6 @@
 	<link rel="stylesheet" href="<?php echo CSS_PATH; ?>/reset.css">
 	<link rel="stylesheet" href="<?php echo CSS_PATH; ?>/style.css">
 	<link rel="stylesheet" href="<?php echo CSS_PATH; ?>/pux_faceu.css">
-	<title>顔面戦闘力スカウター</title>
+	<title>FaceCombat | 顔面戦闘力チェッカー</title>
 </head>
 <body>

@@ -1,9 +1,8 @@
 <?php
-// クラスを使用する前に Alchemy::init(); を実行してください。
 
 class Alchemy {
-	private static $api_key_alchemy = '937ccfec370af7d6642363e8fac1178deb474f13';
-	private static $api_key_pux = '5ce21ec6e0c64a1548a85f85bb2189c5';
+	private static $api_key_alchemy = '';
+	private static $api_key_pux = '';
 	private static $analyze_url = 'http://access.alchemyapi.com/calls/url/URLGetRankedImageFaceTags';
 
 	public static function init() {
